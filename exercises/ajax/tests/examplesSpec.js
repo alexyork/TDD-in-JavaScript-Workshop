@@ -73,3 +73,31 @@ describe("using Jasmine spies", function() {
     });
 
 });
+
+describe("faking AJAX responses with a fake server", function() {
+
+    beforeEach(function() {
+        jasmine.Ajax.install();
+    });
+
+    afterEach(function() {
+        jasmine.Ajax.uninstall();
+    });
+
+    it("should call my callback", function() {
+        var myCallbackSpy = jasmine.createSpy();
+        runMyAjaxCode(myCallbackSpy);
+
+        var xhr = jasmine.Ajax.requests.mostRecent();
+        expect(xhr.url).toMatch(/foo/);
+        expect(myCallbackSpy).not.toHaveBeenCalled();
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+            "status": 200,
+            "contentType": 'application/json',
+            "responseText": JSON.stringify({ fake: "json" })
+        });
+
+        expect(myCallbackSpy).toHaveBeenCalled();
+    });
+});
