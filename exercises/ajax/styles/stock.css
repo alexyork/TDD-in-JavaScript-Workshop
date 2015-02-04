@@ -1,0 +1,35 @@
+﻿html {
+    color: #484848;
+    background: #f9f9f9;
+}
+body {
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+}
+h1 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.5em;
+    font-size: 2em;
+}
+#wrapper {
+    width: 500px;
+    margin: 0 auto;
+}
+#container {
+    border: 1px solid rgba(16,16,16,0.1);
+    background-color: white;
+    border-radius: 3px;
+    padding: 15px 20px;
+    text-align: center;
+}
+.status {
+    font-style: italic;
+    color: #484848;
+}
+.price {
+    color: green;
+    font-size: 5rem;
+    font-weight: bold;
+    margin: 0.5rem;
+}

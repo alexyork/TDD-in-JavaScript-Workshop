@@ -1,0 +1,44 @@
+﻿html {
+    color: #484848;
+    background: #f9f9f9;
+}
+body {
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+}
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.5em;
+}
+h1 {
+    font-size: 2em;
+}
+h2 {
+    font-size: 1.5em;
+}
+#wrapper {
+    width: 500px;
+    margin: 0 auto;
+}
+#todoContainer {
+    border: 1px solid rgba(16,16,16,0.1);
+    background-color: white;
+    border-radius: 3px;
+    padding: 15px 20px;
+}
+#todoContainer ul {
+    list-style-type: square;
+    margin: 0 0 10px 0;
+}
+#todoContainer input {
+    border: 1px solid #ccc;
+    padding: 4px 10px;
+    margin: 0;
+    width: 250px;
+}
+#todoContainer button {
+    margin: 0;
+    margin-left: 5px;
+    padding: 4px 10px;
+}

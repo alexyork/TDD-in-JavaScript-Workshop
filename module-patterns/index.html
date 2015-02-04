@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Module Patterns</title>
+        
+        <script type="text/javascript" src="calculator.js"></script>
+        <script type="text/javascript" src="user.js"></script>
+    </head>
+    <body>
+        <h1>Look at your console</h1>
+        <script type="text/javascript">
+            var user = new User("Alex", "York");
+            console.log("User: ", user.getFullName());
+            
+            var calc = jsWorkshop.calculator();
+            console.log("2 + 2: ", calc.add(2, 2));
+        </script>
+    </body>
+</html>

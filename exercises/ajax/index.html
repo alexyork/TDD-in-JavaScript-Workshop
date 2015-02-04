@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Bouvet Current Stock Price</title>
+        <link rel="stylesheet" type="text/css" href="styles/stock.css">
+
+        <script type="text/javascript" src="../../lib/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="src/stockPriceFetcher.js"></script>
+        <script type="text/javascript" src="src/stockPriceDisplay.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>Bouvet Current Stock Price</h1>
+            <div id="container">
+                <p class="price"></p>
+                <p class="status"></p>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var fetcher = jsWorkshop.stockPriceFetcher();
+            var display = jsWorkshop.stockPriceDisplay(fetcher);
+            display.stock("BOUVET");
+        </script> 
+    </body>
+</html>
