@@ -5,62 +5,61 @@
 //
 describe("stockPriceFetcher", function () {
 
+    var stockFetcher;
+    var emptyCallback;
+    
+    beforeEach(function() {
+        stockFetcher = jsWorkshop.stockPriceFetcher();
+        emptyCallback = function() {};
+    });
+    
     it("should fetch data from the correct URL", function() {
         spyOn($, "ajax");
 
-        var stockFetcher = jsWorkshop.stockPriceFetcher();
-        stockFetcher.fetch("BOUVET", function() {}, function() {});
+        stockFetcher.fetch("BOUVET", emptyCallback, emptyCallback);
 
         var ajaxOptions = $.ajax.calls.mostRecent().args[0];
         expect(ajaxOptions.url).toBe("quote.json?q=BOUVET");
     });
 
-    it("should call the success callback when successful", function () {
+    it("should call the success callback when successful", function() {
         spyOn($, "ajax").and.callFake(function(options) {
             options.success(); // This fakes $.ajax to call its own success handler
         });
 
-        var successSpy = jasmine.createSpy();
+        var successCallback = jasmine.createSpy();
+        stockFetcher.fetch("BOUVET", successCallback, emptyCallback);
 
-        var stockFetcher = jsWorkshop.stockPriceFetcher();
-        stockFetcher.fetch("BOUVET", successSpy, function() { });
-
-        expect(successSpy).toHaveBeenCalled();
+        expect(successCallback).toHaveBeenCalled();
     });
 
-    it("should pass data to the success callback when successful", function () {
+    it("should pass data to the success callback when successful", function() {
         spyOn($, "ajax").and.callFake(function(options) {
             options.success({ foo: "bar" }); // Fakes $.ajax's success handler with some "server" data
         });
         var successCallback = jasmine.createSpy();
-
-        var stockFetcher = jsWorkshop.stockPriceFetcher();
-        stockFetcher.fetch("BOUVET", successCallback, function() { });
+        stockFetcher.fetch("BOUVET", successCallback, emptyCallback);
 
         var args = successCallback.calls.mostRecent().args[0];
         expect(args).toEqual({ foo: "bar" });
     });
 
-    it("should call the error callback when an error occurs", function () {
+    it("should call the error callback when an error occurs", function() {
         spyOn($, "ajax").and.callFake(function(options) {
             options.error(); // This fakes $.ajax to call its own success handler
         });
 
         var errorCallback = jasmine.createSpy();
-
-        var stockFetcher = jsWorkshop.stockPriceFetcher();
-        stockFetcher.fetch("BOUVET", function() { }, errorCallback);
+        stockFetcher.fetch("BOUVET", emptyCallback, errorCallback);
 
         expect(errorCallback).toHaveBeenCalled();
     });
 
-    it("should do nothing if no symbol is passed in", function () {
+    it("should do nothing if no symbol is passed in", function() {
         spyOn($, "ajax");
 
         var successCallback = jasmine.createSpy();
         var errorCallback = jasmine.createSpy();
-
-        var stockFetcher = jsWorkshop.stockPriceFetcher();
         stockFetcher.fetch("", successCallback, errorCallback);
 
         expect($.ajax.calls.count()).toBe(0);
@@ -71,14 +70,12 @@ describe("stockPriceFetcher", function () {
     xit("XHR tests", function() {
         jasmine.Ajax.install();
 
-        var successSpy = jasmine.createSpy();
-
-        var stockFetcher = jsWorkshop.stockPriceFetcher();
-        stockFetcher.fetch("BOUVET", successSpy, function () { });
+        var successCallback = jasmine.createSpy();
+        stockFetcher.fetch("BOUVET", successCallback, emptyCallback);
 
         var xhr = jasmine.Ajax.requests.mostRecent();
         expect(xhr.url).toMatch(/BOUVET/);
-        expect(successSpy).not.toHaveBeenCalled();
+        expect(successCallback).not.toHaveBeenCalled();
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             "status": 200,
@@ -86,7 +83,7 @@ describe("stockPriceFetcher", function () {
             "responseText": JSON.stringify({ fake: "json" })
         });
         
-        expect(successSpy).toHaveBeenCalled();
+        expect(successCallback).toHaveBeenCalled();
 
         jasmine.Ajax.uninstall();
     });
