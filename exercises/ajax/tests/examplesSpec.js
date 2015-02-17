@@ -1,4 +1,4 @@
-﻿//
+//
 // Production code
 function runMyAjaxCode(callback) {
     $.ajax({
